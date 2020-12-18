@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request, Req } from '@nestjs/common';
 import { UserManageService } from './userManage.service';
 import { BlogUser } from "../../../entity/user.entity";
+import { LoginParam } from "./interfaces/userManage.dto";
 
 @Controller("blogAdmin")
 export class UserManageController {
@@ -12,8 +13,8 @@ export class UserManageController {
   }
 
   @Post("login")
-  login(@Body() request: Request): Promise<object> {
-    console.log(request)
+  login(@Body() reqBody: LoginParam): Promise<object> {
+    console.log(reqBody.userId)
     return this.userManageService.login();
   }
 }
