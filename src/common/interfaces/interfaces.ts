@@ -1,7 +1,6 @@
-import { response } from "express";
 
-export interface CommonResponse {
+export interface CommonResponse<T> {
   code: number;
   msg: string;
-  data? : any;
+  data : T;
 }

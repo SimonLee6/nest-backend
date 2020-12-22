@@ -1,8 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UseInterceptors } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { BlogUser } from "src/entity/user.entity";
-
 @Injectable()
 export class UserManageService {
   constructor(
@@ -10,14 +9,18 @@ export class UserManageService {
     private readonly userManageRepository: Repository<BlogUser>
   ) {}
 
-  getUsers(): Promise<BlogUser[]> {
-    return this.userManageRepository.find();
+  async getUsers(): Promise<BlogUser[]> {
+    let result = await this.userManageRepository.find();
+    return result;
   }
 
-  login(): Promise<Object>{
-
-    let result = this.userManageRepository.findOne({ user_name: "122" });
-    return this.userManageRepository.find();
+  login(reqBody): Promise<BlogUser>{
+    console.log(reqBody)
+    let query = {
+      user_id: reqBody.userId,
+      user_password: reqBody.password
+    }
+    let result = this.userManageRepository.findOne(query);
+    return result;
   }
-
 }
