@@ -2,4 +2,9 @@
 export interface LoginParam {
   readonly userId: string;
   readonly password: string;
+  readonly verifyCode: string;
+}
+export interface SvgCodeReturn {
+  text: string;
+  data: string;
 }
