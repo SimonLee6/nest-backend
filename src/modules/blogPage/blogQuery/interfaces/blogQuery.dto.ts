@@ -1,14 +1,9 @@
+import { PagingParameters } from "../../../../common/interfaces/interfaces";
 
-export interface CommonResponse<T> {
-  code: number;
-  msg: string;
-  data : T;
+export interface QueryBlogParam extends PagingParameters {
+  
 }
 
-export interface PagingParameters {
-  page: number;
-  size: number;
-}
 
 interface pagingInfo {
   page: number;

@@ -1,3 +1,4 @@
+import BlogPageModule from './modules/blogPage/blogPage.module';
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import BlogAdminModule from "./modules/blogAdmin/blogAdmin.module";
@@ -28,9 +29,10 @@ const defaultOption = {
       "logging": true,
       "autoLoadEntities": true
     }),
-    BlogAdminModule
+    BlogAdminModule,
+    BlogPageModule
   ]
 })
 export class AppModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 }
