@@ -1,7 +1,6 @@
 import { Controller, UseInterceptors, Get, Post, Body, Query } from "@nestjs/common";
 import { Response, ResultInterceptor } from "src/common/interceptor/httpRequest.interceptor";
 import BlogList from "../../../entity/blogList.entity";
-import { BlogComments, BlogCommentsReply } from "../../../entity/blogComments.entity";
 import BlogQueryService from "./blogQuery.service";
 import { QueryBlogParam, ReturnPagingData, BlogCommentsItem } from "./interfaces/blogQuery.dto";
 

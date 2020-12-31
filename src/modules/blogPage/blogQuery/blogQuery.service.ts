@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Repository, FindManyOptions, getRepository, In  } from "typeorm";
+import { Repository, getRepository  } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import BlogList from "../../../entity/blogList.entity";
 import { BlogComments, BlogCommentsReply } from "../../../entity/blogComments.entity";
