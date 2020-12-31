@@ -1,9 +1,9 @@
 import { Controller, UseInterceptors, Get, Post, Body, Query } from "@nestjs/common";
 import { Response, ResultInterceptor } from "src/common/interceptor/httpRequest.interceptor";
 import BlogList from "../../../entity/blogList.entity";
+import { BlogComments, BlogCommentsReply } from "../../../entity/blogComments.entity";
 import BlogQueryService from "./blogQuery.service";
-import { QueryBlogParam, ReturnPagingData } from "./interfaces/blogQuery.dto";
-
+import { QueryBlogParam, ReturnPagingData, BlogCommentsItem } from "./interfaces/blogQuery.dto";
 
 @Controller("blogPage")
 @UseInterceptors(ResultInterceptor)
@@ -18,7 +18,12 @@ export default class BlogQueryController {
   }
 
   @Get("getBlogDetail")
-  getBlogDetail (@Query() key: string): Promise<BlogList> {
-    return this.blogQueryService.getBlogDetail(key);
+  getBlogDetail (@Query() queryParams: string): Promise<BlogList> {
+    return this.blogQueryService.getBlogDetail(queryParams);
+  }
+
+  @Get("getBlogComments")
+  getBlogComments (@Query() queryParams: string): Promise<BlogCommentsItem[]>{
+    return this.blogQueryService.getBlogComments(queryParams);
   }
 }
