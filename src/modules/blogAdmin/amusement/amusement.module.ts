@@ -1,3 +1,4 @@
+
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { BlogUser } from "../../../entity/user.entity";
@@ -8,9 +9,10 @@ import AmusementController from "./amusement.controller";
 @Module({
   // imports: [TypeOrmModule.forFeature([BlogUser])],
   providers: [AmusementService],
-  controllers: [AmusementController],
+  controllers: [
+    AmusementController, AmusementController],
   // exports: [TypeOrmModule]
 })
 export default class AmusementModule {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly connection: Connection) { }
 };

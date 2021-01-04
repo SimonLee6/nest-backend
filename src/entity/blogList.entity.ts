@@ -7,16 +7,10 @@ export default class BlogList {
   @PrimaryColumn()
   id: string;
 
-  @Column({
-    charset: "utf8",
-    type: "mediumtext"
-  })
+  @Column({ charset: "utf8", type: "mediumtext" })
   content: string;
 
-  @Column({
-    charset: "utf8",
-    type: "varchar"
-  })
+  @Column({ charset: "utf8", type: "varchar" })
   title: string;
 
   @Column()
@@ -34,10 +28,7 @@ export default class BlogList {
   @Column()
   cover_image: string;
 
-  @Column({
-    charset: "utf8",
-    type: "varchar"
-  })
+  @Column({ charset: "utf8", type: "varchar" })
   introduce: string
 
 }

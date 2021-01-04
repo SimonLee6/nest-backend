@@ -36,8 +36,8 @@ export default class BlogQueryService {
     return res;
   }
 
-  async getBlogDetail(params): Promise<BlogList> {
-    let result = await this.blogListRepository.findOne({ where: { id: params.blogId }})
+  async getBlogDetail(id): Promise<BlogList> {
+    let result = await this.blogListRepository.findOne({ where: { id }})
     return result
   }
 

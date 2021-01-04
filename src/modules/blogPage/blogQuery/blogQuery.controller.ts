@@ -1,4 +1,4 @@
-import { Controller, UseInterceptors, Get, Post, Body, Query } from "@nestjs/common";
+import { Controller, UseInterceptors, Get, Post, Body, Query, Param } from "@nestjs/common";
 import { Response, ResultInterceptor } from "src/common/interceptor/httpRequest.interceptor";
 import BlogList from "../../../entity/blogList.entity";
 import BlogQueryService from "./blogQuery.service";
@@ -16,9 +16,9 @@ export default class BlogQueryController {
     return this.blogQueryService.getBlogList(reqBody);
   }
 
-  @Get("getBlogDetail")
-  getBlogDetail (@Query() queryParams: string): Promise<BlogList> {
-    return this.blogQueryService.getBlogDetail(queryParams);
+  @Get("getBlogDetail/:id")
+  getBlogDetail (@Param() queryParams): Promise<BlogList> {
+    return this.blogQueryService.getBlogDetail(queryParams.id);
   }
 
   @Get("getBlogComments")

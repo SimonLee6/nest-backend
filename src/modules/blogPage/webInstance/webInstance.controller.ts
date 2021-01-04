@@ -1,5 +1,5 @@
 import { Controller, Get, UseInterceptors } from '@nestjs/common';
-import WebInstanceService from "./webinstance.service";
+import WebInstanceService from "./webInstance.service";
 import { BlogWebInfo } from "../../../entity/blogWebInfo.entity";
 import { ResultInterceptor } from "../../../common/interceptor/httpRequest.interceptor";
 
