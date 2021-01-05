@@ -4,7 +4,7 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import BlogAdminModule from "./modules/blogAdmin/blogAdmin.module";
 import { Connection } from "typeorm";
-import { ormDefaultOption } from "../config/ormConfig";
+import { ormDefaultOption } from "../config";
 
 @Module({
   imports: [

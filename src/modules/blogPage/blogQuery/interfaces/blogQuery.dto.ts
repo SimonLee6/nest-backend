@@ -10,6 +10,7 @@ interface pagingInfo {
   size: number;
   total: number;
 }
+
 export interface ReturnPagingData<T> {
   data: T;
   pagingInfo: pagingInfo

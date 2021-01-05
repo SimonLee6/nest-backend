@@ -1,11 +1,8 @@
 import { Entity, Column, PrimaryColumn } from "typeorm";
-// import { Base } from "./base";
+import { Base } from "./base";
 
 @Entity()
-export default class BlogList {
-
-  @PrimaryColumn()
-  id: string;
+export default class BlogList extends Base {
 
   @Column({ charset: "utf8", type: "mediumtext" })
   content: string;
