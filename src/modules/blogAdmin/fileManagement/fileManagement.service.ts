@@ -2,7 +2,9 @@ import { Injectable, HttpException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { TCouldCosSecret, ImageCOSOption } from "../../../../config";
-import fs from "fs";
+
+// import * as FS from "fs";
+import * as Path from "path";
 import * as UUID from "uuid";
 import * as COS from "cos-nodejs-sdk-v5";
 import * as Util from "../../../common/utils/util";
@@ -13,9 +15,8 @@ export default class FileManagementService {
   constructor() {}
 
   async uploadImage(file): Promise<string> {
-
     let cos = new COS({ SecretId: TCouldCosSecret.id, SecretKey: TCouldCosSecret.key })
-    let url = `images/${UUID.v1() + file.originalname.substring(file, file.originalname.length)}`;
+    let url = `images/${UUID.v1() + Path.extname(file.originalname)}`
     let cosParam = { 
       cos,
       options: {

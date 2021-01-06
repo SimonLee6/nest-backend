@@ -1,7 +1,6 @@
 import { Body, Controller, Post, UseInterceptors, UploadedFile } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ResultInterceptor } from "../../../common/interceptor/httpRequest.interceptor";
-
 import FileManagementService from "./fileManagement.service";
 
 

@@ -1,8 +1,8 @@
 
-export interface CommonResponse<T> {
+export interface CommonResponse<V> {
   code: number;
   msg: string;
-  data : T;
+  data : V;
 }
 
 export interface PagingParameters {
@@ -15,7 +15,7 @@ interface pagingInfo {
   size: number;
   total: number;
 }
-export interface ReturnPagingData<T> {
-  data: T;
+export interface ReturnPagingData<V> {
+  data: V;
   pagingInfo: pagingInfo
 }
