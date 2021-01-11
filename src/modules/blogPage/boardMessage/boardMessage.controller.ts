@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseFilters, UseInterceptors, UsePipes } from "@nestjs/common";
 import BoardMessageService from "./boardMessage.service";
 import { ResultInterceptor } from "../../../common/interceptor/httpRequest.interceptor";
 import { BlogMsgItem, SysCommentsParam } from "./interfaces/boardMessage.dto";
+import { SysCommentsPipe } from "./interfaces/boardMessage.pipe";
 
 
 @Controller("blogPage")
@@ -18,6 +19,7 @@ export default class BoardMessageController {
   }
 
   @Post("addSysComments")
+  @UsePipes(new SysCommentsPipe())
   addSysComments(@Body() reqBody: SysCommentsParam) :Promise<string> {
     return this.boardMessageService.addSysComments(reqBody);
   }
