@@ -18,35 +18,37 @@ export default class BlogQueryService {
   ) {}
 
   async getBlogList(reqBody): Promise<ReturnPagingData<BlogList[]>> {
-    let { page = 1, size = 10 } = reqBody;
-    let result = await getRepository(BlogList)
+    const { page = 1, size = 10 } = reqBody;
+    console.log(reqBody, page, size)
+    const result = await getRepository(BlogList)
       .createQueryBuilder("blog_list")
       .orderBy("blog_list.created_time", "ASC")
-      .limit(+size)
-      .offset(+page)
+      // .limit(+size)
+      // .offset(+page)
       .getManyAndCount();
-    let res = {
-      data: result[0],
-      pagingInfo: {
-        total: result[1],
-        page: +page,
-        size: +size
+      const res = {
+        data: result[0],
+        pagingInfo: {
+          total: result[1],
+          page: +page,
+          size: +size
+        }
       }
-    }
+    // console.log(result)
     return res;
   }
 
   async getBlogDetail(id): Promise<BlogList> {
-    let result = await this.blogListRepository.findOne({ where: { id }})
+    const result = await this.blogListRepository.findOne({ where: { id }})
     return result
   }
 
   async getBlogComments (params): Promise<BlogCommentsItem[]> {
-    let comments = await this.blogCommentsRepository.find({ where: { blog_id: params.blogId }})
+    const comments = await this.blogCommentsRepository.find({ where: { blog_id: params.blogId }})
 
-    let replyList = await this.blogCommentsReplyRepository.find({ where: { blog_id: params.blogId }})
+    const replyList = await this.blogCommentsReplyRepository.find({ where: { blog_id: params.blogId }})
 
-    let result = comments.map(ele => {
+    const result = comments.map(ele => {
       return {
         ...ele,
         reply_list: replyList.filter(e => e.reply_id === ele.id)

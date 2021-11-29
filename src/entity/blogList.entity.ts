@@ -19,7 +19,7 @@ export default class BlogList extends Base {
   @Column()
   read_count: number;
 
-  @Column("bigint")
+  @Column("datetime")
   created_time: number;
 
   @Column()

@@ -13,6 +13,7 @@ export default class BlogQueryController {
 
   @Post("getBlogList")
   getBlogList (@Body() reqBody: QueryBlogParam): Promise<ReturnPagingData<BlogList[]>> {
+    console.log("===>")
     return this.blogQueryService.getBlogList(reqBody);
   }
 
