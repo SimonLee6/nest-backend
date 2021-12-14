@@ -13,6 +13,5 @@ import BlogManageController from "./blogManage.controller";
   exports: [TypeOrmModule]
 })
 export default class AmusementModule {
-  constructor(private readonly connection: Connection) { }
-  
+  constructor(private readonly connection: Connection) { }  
 };
