@@ -1,13 +1,13 @@
 import { Injectable, HttpException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { TCouldCosSecret, ImageCOSOption } from "../../../../config";
+import { AliCouldCosSecret, BucketOpt } from "../../../../config";
 
-// import * as FS from "fs";
+
 import * as Path from "path";
-import * as UUID from "uuid";
-import * as COS from "cos-nodejs-sdk-v5";
-import * as Util from "../../../common/utils/util";
+
+import * as OSS from "ali-oss";
+import * as UUID from "node-uuid";
 
 @Injectable()
 export default class FileManagementService {
@@ -15,25 +15,27 @@ export default class FileManagementService {
   constructor() {}
 
   async uploadImage(file): Promise<string> {
-    let cos = new COS({ SecretId: TCouldCosSecret.id, SecretKey: TCouldCosSecret.key })
-    let url = `images/${UUID.v1() + Path.extname(file.originalname)}`
-    let cosParam = { 
-      cos,
-      options: {
-        Bucket: ImageCOSOption.bucket,          /* 存储桶名称 */
-        Region: ImageCOSOption.region,          /* 地域代号 */
-        Key: url,                               /* 文件名url */
-        StorageClass: "STANDARD",
-        Body: Buffer.from(file.buffer),         /* 上传文件对象 */
-        onProgress: function() {}
-      }
+    try {
+      
+      const client = new OSS({
+        region: BucketOpt.Region,
+        accessKeyId: AliCouldCosSecret.Id,
+        accessKeySecret: AliCouldCosSecret.Secret,
+        bucket: BucketOpt.BucketName,
+        endpoint: BucketOpt.Endpoint,
+        secure: true
+      })
+      const url = `blog-image/${UUID.v1() + Path.extname(file.originalname)}`
+      const result = await client.put(url, Buffer.from(file.buffer))
+      // console.log("result", result)
+      return result.url
+      
+    } catch (error) {
+      console.log(error)
+      return "上传失败";
     }
-
-    let result = await Util.uploadFileAsync(cosParam,
-      new HttpException({ code: 500, msg: "上传失败" }, 500)
-    )
-
-    return result;
+    
+    
   }
 
 }

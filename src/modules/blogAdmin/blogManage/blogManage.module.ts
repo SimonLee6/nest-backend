@@ -1,17 +1,17 @@
 
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { BlogAudio } from "../../../entity/blogAudio.entity";
+import BlogList from "../../../entity/blogList.entity";
 import { Connection } from "typeorm";
 import BlogManageService from "./blogManage.service";
 import BlogManageController from "./blogManage.controller";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BlogAudio])],
+  imports: [TypeOrmModule.forFeature([BlogList])],
   providers: [BlogManageService],
   controllers: [BlogManageController],
   exports: [TypeOrmModule]
 })
-export default class AmusementModule {
+export default class BlogManageModule {
   constructor(private readonly connection: Connection) { }  
 };

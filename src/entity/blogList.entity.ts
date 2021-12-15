@@ -20,7 +20,7 @@ export default class BlogList extends Base {
   read_count: number;
 
   @Column("datetime")
-  created_time: number;
+  created_time: string;
 
   @Column()
   cover_image: string;
