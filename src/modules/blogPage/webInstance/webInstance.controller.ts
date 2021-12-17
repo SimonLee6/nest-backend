@@ -15,5 +15,4 @@ export default class WebInstanceController {
   getWebInfo (): Promise<BlogWebInfo> {
     return this.webInstanceService.getWebInfo();
   }
-
 }
