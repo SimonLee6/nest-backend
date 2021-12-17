@@ -17,11 +17,11 @@ export default class BoardMessageService {
 
   async getSysComments() :Promise<BlogMsgItem[]>{
 
-    let msgs = await this.blogMessageRepository.find();
+    const msgs = await this.blogMessageRepository.find();
 
-    let msgReply = await this.blogMessageReplyRepository.find();
+    const msgReply = await this.blogMessageReplyRepository.find();
 
-    let result = msgs.map(ele => ({
+    const result = msgs.map(ele => ({
       ...ele,
       reply_list: msgReply.filter(e => e.reply_id === ele.id)
     }))
@@ -31,7 +31,7 @@ export default class BoardMessageService {
 
   async addSysComments(reqBody: SysCommentsParam): Promise<string> {
     const { type } = reqBody;
-    let commonData = {
+    const commonData = {
       content: reqBody.content,
       nick_name: reqBody.nick_name,
       email: reqBody.email,
@@ -41,19 +41,19 @@ export default class BoardMessageService {
       location: reqBody.location,
       id: UUID.v1(),
       create_time: Date.now(),
-      is_manager: "false"
+      is_manager: 0
     } as BlogMessage
     if (type === "comments") { // 系统留言
-      let result = await this.blogMessageRepository.save(commonData);
+      const result = await this.blogMessageRepository.save(commonData);
       console.log(result);
       if (result) return "留言成功";
     } else { // 回复系统留言
-      let replyData = {
+      const replyData = {
         ...commonData,
         reply_id: reqBody.reply_id,
         reply_name: reqBody.reply_name
       } as BlogMessageReply
-      let result = await this.blogMessageReplyRepository.save(replyData);
+      const result = await this.blogMessageReplyRepository.save(replyData);
       console.log(result);
       if (result) return "回复成功";
     }

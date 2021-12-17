@@ -27,17 +27,17 @@ class Comments extends Base {
   system: string;
 
   @Column({ type: "bigint" })
-  create_time: number;
+  create_time: string;
 
   @Column()
-  is_manager: string;
+  is_manager: number;
 }
 
 
 
 @Entity()
 export class BlogComments extends Comments {
-
+  
 }
 
 @Entity()

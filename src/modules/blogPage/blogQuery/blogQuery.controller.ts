@@ -2,7 +2,12 @@ import { Controller, UseInterceptors, Get, Post, Body, Query, Param } from "@nes
 import { Response, ResultInterceptor } from "src/common/interceptor/httpRequest.interceptor";
 import BlogList from "../../../entity/blogList.entity";
 import BlogQueryService from "./blogQuery.service";
-import { QueryBlogParam, ReturnPagingData, BlogCommentsItem } from "./interfaces/blogQuery.dto";
+import { 
+  QueryBlogParam,
+  ReturnPagingData,
+  BlogCommentsItem,
+  AddBlogCommentsParam
+} from "./interfaces/blogQuery.dto";
 
 @Controller("blogPage")
 @UseInterceptors(ResultInterceptor)
@@ -13,7 +18,6 @@ export default class BlogQueryController {
 
   @Post("getBlogList")
   getBlogList (@Body() reqBody: QueryBlogParam): Promise<ReturnPagingData<BlogList[]>> {
-    console.log("===>")
     return this.blogQueryService.getBlogList(reqBody);
   }
 
@@ -25,5 +29,10 @@ export default class BlogQueryController {
   @Get("getBlogComments")
   getBlogComments (@Query() queryParams: string): Promise<BlogCommentsItem[]>{
     return this.blogQueryService.getBlogComments(queryParams);
+  }
+
+  @Post("addBlogComments")
+  addBlogComments (@Body() reqBody: AddBlogCommentsParam): Promise<string> {
+    return this.blogQueryService.addBlogComments(reqBody);
   }
 }

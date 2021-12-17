@@ -27,7 +27,7 @@ class Message extends Base {
   create_time: number;
 
   @Column()
-  is_manager: string;
+  is_manager: number;
 }
 
 

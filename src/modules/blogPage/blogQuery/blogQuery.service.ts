@@ -5,6 +5,7 @@ import BlogList from "../../../entity/blogList.entity";
 import { BlogComments, BlogCommentsReply } from "../../../entity/blogComments.entity";
 import { ReturnPagingData, BlogCommentsItem } from "./interfaces/blogQuery.dto";
 import * as dayjs from "dayjs";
+import * as UUID from "node-uuid";
 
 @Injectable()
 export default class BlogQueryService {
@@ -44,10 +45,11 @@ export default class BlogQueryService {
     return res;
   }
 
-  async getBlogDetail(id): Promise<BlogList> {
+  async getBlogDetail(id): Promise<BlogList|null> {
 
     const result = await this.blogListRepository.findOne({ where: { id }})
 
+    if (!result) return null
 
     const data = {
       ...result,
@@ -75,5 +77,62 @@ export default class BlogQueryService {
       }
     })
     return result;
+  }
+
+  async addBlogComments(params): Promise<string> {
+    try {
+      const {
+        blog_id,
+        type,
+        system,
+        browser,
+        location,
+        content,
+        nick_name,
+        email,
+        net,
+        reply_id,
+        reply_name,
+      } = params
+
+      const comments = {
+        id: UUID.v1(),
+        blog_id,
+        nick_name,
+        system,
+        browser,
+        location,
+        content,
+        email,
+        net,
+        is_manager: 0,
+        create_time: dayjs(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      }
+      if (type === "comments") { // 评论
+
+        const result = await this.blogCommentsRepository.save(comments)
+        console.log("result", result)
+        await this.updateBlogCommentsCount(blog_id)
+        return "评论成功"
+      } else { // 回复评论
+        const replayComments = {
+          ...comments,
+          reply_id,
+          reply_name
+        }
+        const result = await this.blogCommentsRepository.save(replayComments)
+        console.log(result)
+        return "评论成功"
+      }
+
+    } catch (error) {
+      return "评论失败"
+    }
+  }
+
+  async updateBlogCommentsCount(id): Promise<string> {
+    await this.blogListRepository.update({ id }, { comments: () => "comments + 1" })
+
+    return ""
   }
 }
