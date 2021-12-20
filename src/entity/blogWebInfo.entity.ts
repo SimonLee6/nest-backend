@@ -3,6 +3,8 @@ import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class BlogWebInfo {
+  @Column()
+  id: string;
 
   @Column()
   visit_count: number;

@@ -33,14 +33,40 @@ export default class BlogQueryService {
       ...ele,
       created_time: dayjs(Date.parse(ele.created_time)).format("YYYY-MM-DD HH:mm:ss")
     }))
-      const res = {
-        data: data,
-        pagingInfo: {
-          total: result[1],
-          page: +page,
-          size: +size
-        }
+
+    const res = {
+      data: data,
+      pagingInfo: {
+        total: result[1],
+        page: +page,
+        size: +size
       }
+    }
+    // console.log(result)
+    return res;
+  }
+
+  async getRecommendBlogs(): Promise<ReturnPagingData<BlogList[]>> {
+    
+    const result = await getRepository(BlogList)
+      .createQueryBuilder("blog_list")
+      .where("blog_list.is_recommend", { is_recommend: 1 })
+      .orderBy("blog_list.created_time", "DESC")
+      .getManyAndCount();
+    
+    const data = result[0].map(ele => ({
+      ...ele,
+      created_time: dayjs(Date.parse(ele.created_time)).format("YYYY-MM-DD HH:mm:ss")
+    }))
+
+    const res = {
+      data: data,
+      pagingInfo: {
+        total: result[1],
+        page: 1,
+        size: 10
+      }
+    }
     // console.log(result)
     return res;
   }

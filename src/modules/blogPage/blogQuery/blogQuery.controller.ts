@@ -21,6 +21,11 @@ export default class BlogQueryController {
     return this.blogQueryService.getBlogList(reqBody);
   }
 
+  @Get("getRecommendBlogs")
+  getRecommendBlogs (): Promise<ReturnPagingData<BlogList[]>> {
+    return this.blogQueryService.getRecommendBlogs();
+  }
+
   @Get("getBlogDetail/:id")
   getBlogDetail (@Param() queryParams): Promise<BlogList> {
     return this.blogQueryService.getBlogDetail(queryParams.id);
@@ -35,4 +40,6 @@ export default class BlogQueryController {
   addBlogComments (@Body() reqBody: AddBlogCommentsParam): Promise<string> {
     return this.blogQueryService.addBlogComments(reqBody);
   }
+
+  
 }
