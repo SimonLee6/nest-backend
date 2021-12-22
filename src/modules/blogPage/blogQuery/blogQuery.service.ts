@@ -67,7 +67,7 @@ export default class BlogQueryService {
         size: 10
       }
     }
-    // console.log(result)
+
     return res;
   }
 

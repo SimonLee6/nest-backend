@@ -25,7 +25,8 @@ export default class BlogManageService {
         read_count: 0,
         created_time: dayjs(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
         cover_image: reqBody.cover_image,
-        introduce: reqBody.introduce
+        introduce: reqBody.introduce,
+        is_recommend: 0
       } as BlogList
   
       const result = await this.blogListRepository.save(blogInfo)

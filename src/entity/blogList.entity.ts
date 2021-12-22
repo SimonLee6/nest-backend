@@ -26,6 +26,9 @@ export default class BlogList extends Base {
   cover_image: string;
 
   @Column({ charset: "utf8", type: "varchar" })
-  introduce: string
+  introduce: string;
+
+  @Column()
+  is_recommend: number;
 
 }
